@@ -41,9 +41,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
+    // public function show($id)
     {
-        return Product::find($id);
+        // dd($product);
+        return $product;
+        // return Product::find($id);
     }
 
     /**
@@ -55,7 +58,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update($request->all());
+        return $product;
     }
 
     /**
