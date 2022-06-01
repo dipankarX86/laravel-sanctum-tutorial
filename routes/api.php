@@ -26,6 +26,8 @@ Route::get('/products/search/{name}', [ProductController::class, 'search']);
 
 // PROTECTED ROUTES
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    //
     Route::post('/products', [ProductController::class, 'store']);
     Route::put('/products/{product}', [ProductController::class, 'update']);
     Route::delete('/products/{product}', [ProductController::class, 'destroy']);
