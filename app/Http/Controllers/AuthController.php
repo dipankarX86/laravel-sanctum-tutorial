@@ -38,6 +38,39 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
+
+    // Login using api
+    public function login(Request $request)
+    {
+        $fields = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        // Check if the email is present
+        $user = User::where('email', $fields['email'])->first();
+
+        // Check Password
+        if(!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Bad Creds'
+            ], 401);
+        }
+
+        // create the api token
+        $token = $user->createToken('myAppToken')->plainTextToken;
+
+        // response
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        // return what is needed
+        return response($response, 201);
+    }
+
+
     // Logout function
     public function logout(Request $request) {
         auth()->user()->tokens()->delete();

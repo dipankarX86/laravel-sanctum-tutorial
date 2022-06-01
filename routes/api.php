@@ -19,6 +19,7 @@ use App\Http\Controllers\ProductController;
 // PUBLIC ROUTES
 // Route::resource('products', ProductController::class);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 // 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
