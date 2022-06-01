@@ -19,7 +19,11 @@ use Illuminate\Support\Facades\Route;
 // Route::post('/products', [ProductController::class, 'store']);
 // Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::resource('products', ProductController::class);
-Route::get('/products/search/{name}', [ProductController::class, 'search']);
+// Route::get('/products/search/{name}', [ProductController::class, 'search']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/products/search/{name}', [ProductController::class, 'search']);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
